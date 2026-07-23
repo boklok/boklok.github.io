@@ -5,6 +5,10 @@ date: 2026-07-23 18:00:00 +0900
 categories: [개발일지]
 ---
 
+AI 코딩 도구랑 같이 하루 만에 모바일 청첩장 서비스를 기획부터 배포까지 만들어본 기록이에요.
+
+<!--more-->
+
 ![이음 서비스 흐름도](/assets/images/invitation-service-banner.png)
 
 ## 어쩌다 시작했냐면
