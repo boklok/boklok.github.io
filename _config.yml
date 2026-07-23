@@ -1,0 +1,7 @@
+title: boklok의 기록
+description: 만들면서 배운 것들을 남기는 블로그
+theme: minima
+minima:
+  skin: auto
+lang: ko
+show_excerpts: true
