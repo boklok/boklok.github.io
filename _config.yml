@@ -5,3 +5,4 @@ minima:
   skin: auto
 lang: ko
 show_excerpts: true
+future: true
