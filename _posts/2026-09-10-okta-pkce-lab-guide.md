@@ -10,7 +10,7 @@ tags: [okta, pkce, oauth2.0, oidc, security-engineer, authentication]
 
 **RFC 7636 PKCE(Proof Key for Code Exchange)** 를 Okta에서 직접 검증하고, OAuth 2.0 Authorization Code Flow의 보안 메커니즘을 이해하는 실습 가이드입니다.
 
-## 📌 개요
+##  개요
 
 이 가이드는 다음을 다룹니다:
 - Okta Integrator Free Plan을 사용한 OIDC 앱 구성
@@ -20,7 +20,7 @@ tags: [okta, pkce, oauth2.0, oidc, security-engineer, authentication]
 
 ---
 
-## 🔧 사전 준비
+##  사전 준비
 
 ### 필수 항목
 1. **Okta 계정**: Okta Integrator Free Plan (무료, 만료 없음)
@@ -210,10 +210,10 @@ const server = http.createServer((req, res) => {
     
     if (error) {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.end(`<h2>❌ 에러 발생</h2><p>Error: ${error}</p><p>Description: ${parsedUrl.query.error_description || 'N/A'}</p>`);
+      res.end(`<h2> 에러 발생</h2><p>Error: ${error}</p><p>Description: ${parsedUrl.query.error_description || 'N/A'}</p>`);
     } else if (code) {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.end(`<h2>✅ 성공!</h2><p>Authorization Code: <code>${code}</code></p><p>이 코드를 저장하세요 (다음 단계에서 사용)</p>`);
+      res.end(`<h2> 성공!</h2><p>Authorization Code: <code>${code}</code></p><p>이 코드를 저장하세요 (다음 단계에서 사용)</p>`);
     } else {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
       res.end('<h2>콜백 수신됨</h2>');
@@ -227,7 +227,7 @@ const server = http.createServer((req, res) => {
 server.listen(8080, () => {
   const { codeVerifier, codeChallenge } = generatePKCE();
   
-  console.log('🚀 로컬 서버 시작: http://localhost:8080');
+  console.log(' 로컬 서버 시작: http://localhost:8080');
   console.log('\n📋 PKCE 값:');
   console.log(`  Code Verifier: ${codeVerifier}`);
   console.log(`  Code Challenge: ${codeChallenge}`);
@@ -244,7 +244,7 @@ server.listen(8080, () => {
   
   console.log('\n🔗 아래 URL을 브라우저에서 열어주세요:');
   console.log(authUrl);
-  console.log('\n💡 팁: 로컬 서버가 실행 중이면 자동으로 콜백을 처리합니다.');
+  console.log('\n 팁: 로컬 서버가 실행 중이면 자동으로 콜백을 처리합니다.');
 });
 ```
 
@@ -256,7 +256,7 @@ node pkce-test.js
 
 **출력:**
 ```
-🚀 로컬 서버 시작: http://localhost:8080
+ 로컬 서버 시작: http://localhost:8080
 
 📋 PKCE 값:
   Code Verifier: 7fe63c6ba96e0cccf3a83b3d191400330f81dff89c62947bb4a0f2b34a7494d1
@@ -302,7 +302,7 @@ error_description: PKCE is required
 
 **Okta의 동작:**
 - `/authorize` 엔드포인트에서 즉시 400 에러 반환
-- 로그인 화면 이전에 검증 ⚠️ (ADFS/Entra ID는 토큰 교환 단계에서 거부)
+- 로그인 화면 이전에 검증  (ADFS/Entra ID는 토큰 교환 단계에서 거부)
 
 ---
 
@@ -361,17 +361,17 @@ curl -X POST "https://integrator-5935493.okta.com/oauth2/default/v1/token" \
 
 ```
 ┌─────────────────────────────┐
-│  1️⃣ App Assignment          │
+│  1️ App Assignment          │
 │  (dept-engineering 그룹)     │
 └──────────────┬──────────────┘
                ↓
 ┌─────────────────────────────┐
-│  2️⃣ Sign-On Policy          │
+│  2️ Sign-On Policy          │
 │  (Lab - Password Only)       │
 └──────────────┬──────────────┘
                ↓
 ┌─────────────────────────────┐
-│  3️⃣ Authorization Server     │
+│  3️ Authorization Server     │
 │  (OIDC PKCE Lab Policy)     │
 └─────────────────────────────┘
 ```
@@ -386,8 +386,8 @@ curl -X POST "https://integrator-5935493.okta.com/oauth2/default/v1/token" \
 
 **해결:**
 ```
-❌ https://integrator-5935493-admin.okta.com/oauth2/v1/authorize
-✅ https://integrator-5935493.okta.com/oauth2/default/v1/authorize
+**실패** https://integrator-5935493-admin.okta.com/oauth2/v1/authorize
+**성공** https://integrator-5935493.okta.com/oauth2/default/v1/authorize
 ```
 
 - `-admin` 제거
@@ -411,7 +411,7 @@ Directory > People > test+lab@gmail.com > Set Password
 
 ---
 
-## 🔒 보안 권장사항
+##  보안 권장사항
 
 1. **PKCE 필수화** - 모든 OAuth 클라이언트에 적용
 2. **State 파라미터** - CSRF 공격 방지
@@ -421,7 +421,7 @@ Directory > People > test+lab@gmail.com > Set Password
 
 ---
 
-## 📖 참고 자료
+##  참고 자료
 
 - [RFC 7636 - PKCE](https://tools.ietf.org/html/rfc7636)
 - [Okta OAuth 2.0 문서](https://developer.okta.com/docs/guides/implement-oauth-for-okta/)
@@ -430,7 +430,7 @@ Directory > People > test+lab@gmail.com > Set Password
 
 ---
 
-## 💬 피드백
+##  피드백
 
 이 가이드에서 개선할 점이 있으면 댓글로 알려주세요!
 
