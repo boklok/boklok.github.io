@@ -82,8 +82,10 @@ Teams 웹을 InPrivate 창에서 열고 실습 계정으로 로그인했다. 평
 |---|---|
 | A 채팅 파일 | `xxxx-my.sharepoint.com/personal/<보낸 사람>/Documents/Microsoft Teams 채팅 파일/chat-file.txt` |
 | B 채널 회의 녹화 | `xxxx.sharepoint.com/sites/<팀>/Shared Documents/<채널>/Recordings/…mp4` |
-| C 일반 회의 녹화 | `xxxx-my.sharepoint.com/personal/<녹화한 사람>/Documents/Recordings/…mp4` |
+| C 일반 회의 녹화 | `xxxx-my.sharepoint.com/personal/<주최자>/Documents/Recordings/…mp4` |
 | D 예약 회의 | `/me/events`에 존재, `isOnlineMeeting=True`, `onlineMeetingProvider=teamsForBusiness` |
+
+> **정정 (작성 당일)**: 처음에는 일반 회의 녹화가 "녹화한 사람" OneDrive에 저장된다고 썼다. 이번 실습은 내가 주최자이면서 녹화자라 둘을 구별할 수 없었다. [MS 문서](https://learn.microsoft.com/en-us/microsoftteams/tmr-meeting-recording-change) 기준으로 일반 회의는 **주최자** OneDrive, 1:1·그룹 통화만 녹화한 사람 OneDrive다. 주최자에게 OneDrive가 없으면 공동 주최자 → 녹화한 사람 순이고, 아무도 없으면 임시 저장소에 21일 동안만 남는다.
 
 주소가 `-my.sharepoint.com/personal/…`로 시작하면 **개인 OneDrive**, `sharepoint.com/sites/…`로 시작하면 **팀 SharePoint**다.
 
@@ -96,7 +98,7 @@ Teams 웹을 InPrivate 창에서 열고 실습 계정으로 로그인했다. 평
 | 공유 채널 | 별도 사이트 | 채널 |
 | 1:1 채팅 파일 | **보낸 사람 OneDrive** / Microsoft Teams 채팅 파일 | **개인** |
 | 채널 회의 녹화 | 팀 사이트 / 채널 폴더 / Recordings | 팀 |
-| 일반 회의 녹화 | **녹화한 사람 OneDrive** / Recordings | **개인** |
+| 일반 회의 녹화 | **주최자 OneDrive** / Recordings | **개인** |
 | 예약 회의 | Exchange 사서함 일정 | 사서함 |
 
 ---
@@ -124,8 +126,8 @@ Invoke-MgGraphRequest -Method GET -Uri "v1.0/me/drive/root:/Microsoft Teams Chat
 
 **"그 파일은 누구 것인가?"**를 먼저 물으면 볼 곳이 정해진다.
 
-- **퇴사자 처리**: 채팅으로 보낸 파일과 직접 녹화한 회의는 **그 사람 OneDrive**에 있다. 계정을 지우기 전에 OneDrive의 `Microsoft Teams 채팅 파일`과 `Recordings`를 먼저 확인해야, 상대방이 받은 파일과 회의 녹화를 잃지 않는다.
-- **"녹화가 어디 있어요?"**: 채널에서 열린 회의면 팀 사이트, 아니면 **녹화 버튼을 누른 사람**의 OneDrive다. 주최자가 아니다.
+- **퇴사자 처리**: 채팅으로 보낸 파일과 **그 사람이 주최한 회의의 녹화**는 **그 사람 OneDrive**에 있다. 계정을 지우기 전에 OneDrive의 `Microsoft Teams 채팅 파일`과 `Recordings`를 먼저 확인해야, 상대방이 받은 파일과 회의 녹화를 잃지 않는다.
+- **"녹화가 어디 있어요?"**: 채널에서 열린 회의면 팀 사이트, 일반 회의면 **주최자** OneDrive다. 녹화 버튼을 누른 사람 기준은 1:1·그룹 통화뿐이다.
 - **"비공개 채널 권한이 이상해요"**: 비공개·공유 채널은 별도 사이트라 팀 사이트 권한과 따로 움직인다. 팀 하나가 사이트 여러 개다.
 - **"Teams에 일정이 안 떠요"**: Teams 일정은 Exchange 일정을 보여 주는 창이다. 먼저 Exchange 서비스 플랜과 사서함을 본다.
 - **보존·보안 정책**: Teams 파일을 지키려면 SharePoint(채널), **OneDrive(채팅·일반 회의 녹화)**, Exchange(일정)를 모두 범위에 넣어야 한다.
